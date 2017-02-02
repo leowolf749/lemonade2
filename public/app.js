@@ -9,21 +9,21 @@ app.config(function ($stateProvider) {
         component: 'newGame',
     });
 
-    // $stateProvider.state({
-    //     name: 'stand-manager',
-    //     url: '/stand',
-    //     component: 'dayInfo',
-    // });
+    $stateProvider.state({
+        name: 'stand-manager',
+        url: '/stand',
+        component: 'dayInfo',
+    });
 
-    // $stateProvider.state({
-    //     name: 'high-scores',
-    //     url: '/high-scores',
-    // });
+    $stateProvider.state({
+        name: 'high-scores',
+        url: '/high-scores',
+    });
 });
 
 const controllers = [
     require('./controllers/newgame'),
-    // require('./controllers/mystand'),
+    require('./controllers/mystand'),
     // require('./controllers/resources'),
 ];
 
@@ -33,7 +33,7 @@ for (let i = 0; i < controllers.length; i++) {
 
 const services = [
     require('./services/newgameservice'),
-    // require('./services/standservice'),
+    require('./services/standservice'),
     // require('./services/resourcesservice'),
 ];
 
@@ -42,19 +42,29 @@ for (let i = 0; i < services.length; i++) {
 };
 
 
-// app.component('dayInfo', {
-//     controller: 'MyStandController',
-//     templateUrl: 'templates/day-info.html',
-//     bindings: {
-//         stats: '<',
-//     },
-// });
+app.component('dayInfo', {
+    controller: 'MyStandController',
+    templateUrl: 'templates/day-info.html',
+    bindings: {
+        stats: '<',
+    },
+});
 
 app.component('newGame', {
     controller: 'NewGameController',
     templateUrl: 'templates/new-game.html',
-})
-},{"./controllers/newgame":2,"./services/newgameservice":3}],2:[function(require,module,exports){
+});
+},{"./controllers/mystand":2,"./controllers/newgame":3,"./services/newgameservice":4,"./services/standservice":5}],2:[function(require,module,exports){
+module.exports = {
+    name: 'MyStandController',
+    func: function($scope, StandService) {
+        $scope.getStandInfo = function (){
+            StandService.getStandInfo();
+        };
+
+    },
+};
+},{}],3:[function(require,module,exports){
 module.exports = {
     name: 'NewGameController',
     func: function ($scope, NewGameService) {
@@ -63,17 +73,48 @@ module.exports = {
         }
     }
 }
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 module.exports = {
     name: 'NewGameService',
     func: function ($http) {
+        let standId = null;
+
         return {
             startNew(name) {
                 $http.post('https://blooming-hamlet-70507.herokuapp.com/stand', {
                     stand_name: name,
+                }).then(function (response){
+                    console.log(response)
+                    standId = response.data.stand_id;
                 });
-            }
+
+            },
+
+            getStandId(id) {
+                
+            },
         }
     },
+}
+},{}],5:[function(require,module,exports){
+module.exports = {
+    name: 'StandService',
+    func: function ($http, NewGameService) {
+        // const log = [            
+        //     { label: 'DAY', value: 1},
+        //     { label: 'MONEY', value: '$' + 10},
+        //     { label: 'VISITORS', value: 10},
+        //     { label: 'CUSTOMERS', value: 0},
+        // ];
+
+        return {
+            getStandInfo() {
+                 $http.get('https://blooming-hamlet-70507.herokuapp.com/stand' + NewGameService.getStandId(standId));
+            },
+        };
+
+    },
+
+
 }
 },{}]},{},[1]);
