@@ -14,7 +14,8 @@ module.exports = {
 
             },
 
-            getStandId(id) {
+            getStandId() {
+                return standId;
                 
             },
         }

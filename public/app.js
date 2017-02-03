@@ -46,7 +46,7 @@ app.component('dayInfo', {
     controller: 'MyStandController',
     templateUrl: 'templates/day-info.html',
     bindings: {
-        stats: '<',
+        info: '<',
     },
 });
 
@@ -90,7 +90,8 @@ module.exports = {
 
             },
 
-            getStandId(id) {
+            getStandId() {
+                return standId;
                 
             },
         }
@@ -100,16 +101,16 @@ module.exports = {
 module.exports = {
     name: 'StandService',
     func: function ($http, NewGameService) {
-        // const log = [            
-        //     { label: 'DAY', value: 1},
-        //     { label: 'MONEY', value: '$' + 10},
-        //     { label: 'VISITORS', value: 10},
-        //     { label: 'CUSTOMERS', value: 0},
-        // ];
+        const data = [];
 
         return {
             getStandInfo() {
-                 $http.get('https://blooming-hamlet-70507.herokuapp.com/stand' + NewGameService.getStandId(standId));
+                 $http.get('https://blooming-hamlet-70507.herokuapp.com/stand/' + NewGameService.getStandId())
+                 .then(function (response) {
+                     data.push(response);
+                     console.log(data);
+                 });
+                 
             },
         };
 

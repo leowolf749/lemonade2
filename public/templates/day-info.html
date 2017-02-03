@@ -1,7 +1,9 @@
 <section>
+    <button ng-click="getStandInfo()">Update Stand</button>
+    <h3>{{  }}</h3>
     <ul>
-        <li class="daily" ng-repeat="info in log">
-            <h4>{{ info.label }}</h4>
+        <li class="daily" ng-repeat="info in data">
+            <h4>{{ info.day }}</h4>
             <p>{{ info.value }}</p>
         </li>
     </ul>
