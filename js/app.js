@@ -45,7 +45,7 @@ app.component('dayInfo', {
     controller: 'MyStandController',
     templateUrl: 'templates/day-info.html',
     bindings: {
-        info: '<',
+        data: '<',
     },
 });
 

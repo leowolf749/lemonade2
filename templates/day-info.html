@@ -1,10 +1,10 @@
 <section>
-    <button ng-click="getStandInfo()">Update Stand</button>
-    <h3>{{  }}</h3>
+    <button ng-click="getStandInfo()" ng-click="getData()">Update Stand</button>
+    <h4>{{ ingredients.label }}</h4>
     <ul>
-        <li class="daily" ng-repeat="info in data">
-            <h4>{{ info.day }}</h4>
-            <p>{{ info.value }}</p>
+        <li class="daily" ng-repeat="ingredients in data">
+            <h4>{{ ingredients.label }}</h4>
+            <p>{{ data.ingredients.value }}</p>
         </li>
     </ul>
 </section>

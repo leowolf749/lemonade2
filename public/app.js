@@ -46,7 +46,7 @@ app.component('dayInfo', {
     controller: 'MyStandController',
     templateUrl: 'templates/day-info.html',
     bindings: {
-        info: '<',
+        data: '<',
     },
 });
 
@@ -58,8 +58,11 @@ app.component('newGame', {
 module.exports = {
     name: 'MyStandController',
     func: function($scope, StandService) {
-        $scope.getStandInfo = function (){
+        $scope.getStandInfo = function () {
             StandService.getStandInfo();
+        };
+        $scope.getData = function () {
+            StandService.getData();
         };
 
     },
@@ -111,6 +114,10 @@ module.exports = {
                      console.log(data);
                  });
                  
+            },
+
+            getData() {
+                return data;
             },
         };
 

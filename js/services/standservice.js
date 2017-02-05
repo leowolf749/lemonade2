@@ -12,6 +12,10 @@ module.exports = {
                  });
                  
             },
+
+            getData() {
+                return data;
+            },
         };
 
     },
